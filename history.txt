@@ -1,0 +1,3 @@
+Você: bom dia
+SOF.IA: Pode repetir a pergunta? Não consegui entender.
+
