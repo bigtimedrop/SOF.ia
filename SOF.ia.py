@@ -18,6 +18,14 @@ def save_config(config):
     with open("config.json", "w") as f:
         json.dump(config, f)
 
+def add_response_category(category, responses):
+	data = load_responses()
+	data[category] = responses
+	with open ("responses.json", "w") as f:
+		json.dump(data, f)
+	return f"Categoria '{category}' adicionada com sucesso."
+
+
 def get_response(user_message):
     user_message = user_message.lower()
     responses = load_responses()
@@ -143,6 +151,7 @@ settings_menu.add_command(label="Mudar Tema", command=change_theme)
 settings_menu.add_command(label="Manual de Uso", command=show_help)
 settings_menu.add_command(label="Histórico de Conversas", command=show_history)
 settings_menu.add_command(label="Reconhecimento de Voz", command=start_voice_recognition)
+settings_menu.add_command(label="Gerenciar Base de Conhecimento", command=manage_knowledge_base)
 
 # Log de conversas
 chat_log = tk.Text(root, state="normal", height=20, width=50)
