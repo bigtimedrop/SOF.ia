@@ -3,7 +3,6 @@ from tkinter import messagebox, filedialog
 import json
 import random
 import os
-import speech_recognition as sr
 import math
 
 # Funções principais
@@ -36,7 +35,7 @@ def get_response(user_message):
         return random.choice(responses.get("farewell", []))
     elif "projeto" in user_message:
         return random.choice(responses.get("project", []))
-    elif "calcular" in user_message:
+    elif "calcular" or "calcule" in user_message:
         try:
             expression = user_message.replace("calcular", "").strip()
             result = eval(expression, {"__builtins__": None}, {})
@@ -111,20 +110,6 @@ def show_history():
     except FileNotFoundError:
         messagebox.showinfo("Histórico de Conversas", "Nenhum histórico encontrado.")
 
-def start_voice_recognition():
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        messagebox.showinfo("Gravação", "Diga algo!")
-        audio = recognizer.listen(source)
-        try:
-            user_message = recognizer.recognize_google(audio)
-            entry_message.delete(0, tk.END)
-            entry_message.insert(0, user_message)
-            send_message()
-        except sr.UnknownValueError:
-            messagebox.showinfo("Erro", "Não consegui entender o áudio.")
-        except sr.RequestError:
-            messagebox.showinfo("Erro", "Erro ao conectar com o serviço de reconhecimento de voz.")
 
 # Configurações iniciais
 config = load_config()
@@ -142,7 +127,6 @@ menu.add_cascade(label="Configurações", menu=settings_menu)
 settings_menu.add_command(label="Mudar Tema", command=change_theme)
 settings_menu.add_command(label="Manual de Uso", command=show_help)
 settings_menu.add_command(label="Histórico de Conversas", command=show_history)
-settings_menu.add_command(label="Reconhecimento de Voz", command=start_voice_recognition)
 
 # Log de conversas
 chat_log = tk.Text(root, state="normal", height=20, width=50)
