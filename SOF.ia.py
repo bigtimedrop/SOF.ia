@@ -25,34 +25,13 @@ def add_response_category(category, responses):
 		json.dump(data, f)
 	return f"Categoria '{category}' adicionada com sucesso."
 
-
 def get_response(user_message):
     user_message = user_message.lower()
     responses = load_responses()
-    
-    if "olá" in user_message or "oi" in user_message:
-        return random.choice(responses.get("greetings", []))
-    elif "tudo bem" in user_message:
-        return random.choice(responses.get("wellbeing", []))
-    elif "nome" in user_message:
-        return random.choice(responses.get("name", []))
-    elif "tempo" in user_message:
-        return random.choice(responses.get("weather", []))
-    elif "ajuda" in user_message:
-        return random.choice(responses.get("help", []))
-    elif "adeus" in user_message or "tchau" in user_message:
-        return random.choice(responses.get("farewell", []))
-    elif "projeto" in user_message:
-        return random.choice(responses.get("project", []))
-    elif "calcular" in user_message:
-        try:
-            expression = user_message.replace("calcular", "").strip()
-            result = eval(expression, {"__builtins__": None}, {})
-            return f"O resultado é: {result}"
-        except Exception as e:
-            return "Desculpe, não consegui calcular a expressão."
-    else:
-        return random.choice(responses.get("default", []))
+    for category, response_list in responses.items():
+        if category in user_message:
+            return random.choice(response_list)
+    return random.choice(responses.get("default", []))
 
 def load_responses():
     try:
@@ -133,6 +112,46 @@ def start_voice_recognition():
             messagebox.showinfo("Erro", "Não consegui entender o áudio.")
         except sr.RequestError:
             messagebox.showinfo("Erro", "Erro ao conectar com o serviço de reconhecimento de voz.")
+
+def manage_knowledge_base():
+    def add_category():
+        category = entry_category.get().strip()
+        responses = entry_responses.get("1.0", tk.END).strip().split("\n")
+        if category and responses:
+            data = load_responses()
+            data[category] = responses
+            with open("responses.json", "w") as f:
+                json.dump(data, f, indent=4)
+            messagebox.showinfo("Sucesso", f"Categoria '{category}' adicionada com sucesso.")
+            window.destroy()
+        else:
+            messagebox.showerror("Erro", "Por favor, preencha todos os campos.")
+
+    window = tk.Toplevel(root)
+    window.title("Gerenciar Base de Conhecimento")
+    window.geometry("400x300")
+
+    tk.Label(window, text="Categoria:").pack(pady=5)
+    entry_category = tk.Entry(window, width=40)
+    entry_category.pack(pady=5)
+
+    tk.Label(window, text="Respostas (uma por linha):").pack(pady=5)
+    entry_responses = tk.Text(window, height=10, width=40)
+    entry_responses.pack(pady=5)
+
+    tk.Button(window, text="Adicionar Categoria", command=add_category).pack(pady=10)
+
+def save_edited_category():
+    category = entry_category.get().strip()
+    responses = entry_responses.get("1.0", tk.END).strip().split("\n")
+    data = load_responses()
+    if category in data:
+        data[category] = responses
+        with open("responses.json", "w") as f:
+            json.dump(data, f, indent=4)
+        messagebox.showinfo("Sucesso", f"Categoria '{category}' atualizada com sucesso.")
+    else:
+        messagebox.showerror("Erro", f"Categoria '{category}' não encontrada.")
 
 # Configurações iniciais
 config = load_config()

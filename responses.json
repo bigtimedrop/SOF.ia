@@ -1,0 +1,50 @@
+{
+    "greetings": [
+        "Ol\u00e1! Como posso ajudar voc\u00ea hoje?",
+        "Oi! O que voc\u00ea precisa?",
+        "Ol\u00e1! Em que posso ser \u00fatil?"
+    ],
+    "wellbeing": [
+        "Estou bem, obrigado por perguntar! E voc\u00ea?",
+        "Tudo \u00f3timo por aqui! E com voc\u00ea?",
+        "Estou bem! Como voc\u00ea est\u00e1?"
+    ],
+    "name": [
+        "Eu sou a SOF.IA, seu assistente virtual.",
+        "Meu nome \u00e9 SOF.IA.",
+        "Pode me chamar de SOF.IA."
+    ],
+    "weather": [
+        "Desculpe, mas n\u00e3o posso fornecer informa\u00e7\u00f5es sobre o tempo no momento.",
+        "N\u00e3o tenho acesso a informa\u00e7\u00f5es meteorol\u00f3gicas.",
+        "Infelizmente, n\u00e3o posso informar sobre o tempo agora."
+    ],
+    "help": [
+        "Claro! Estou aqui para ajudar. O que voc\u00ea precisa?",
+        "Como posso te ajudar hoje?",
+        "Estou \u00e0 disposi\u00e7\u00e3o para ajudar. O que voc\u00ea precisa?"
+    ],
+    "farewell": [
+        "At\u00e9 logo! Se precisar de mais alguma coisa, \u00e9 s\u00f3 chamar.",
+        "Tchau! Tenha um \u00f3timo dia.",
+        "Adeus! Volte sempre que precisar."
+    ],
+    "project": [
+        "Voc\u00ea est\u00e1 trabalhando no projeto SOF.IA. Como posso ajud\u00e1-lo com isso?",
+        "O projeto SOF.IA est\u00e1 progredindo bem. Em que posso ajudar?",
+        "Posso ajudar com o projeto SOF.IA. O que voc\u00ea precisa saber?"
+    ],
+    "default": [
+        "Desculpe, n\u00e3o compreendi a sua pergunta. Pode reformular?",
+        "N\u00e3o entendi. Pode explicar de outra forma?",
+        "Pode repetir a pergunta? N\u00e3o consegui entender."
+    ],
+    "Alimentos": [
+        "P\u00e3o",
+        "Macarr\u00e3o",
+        "Lim\u00e3o",
+        "Pastel",
+        "Cenora",
+        "Bolo"
+    ]
+}

@@ -1,3 +1,24 @@
 Você: bom dia
 SOF.IA: Pode repetir a pergunta? Não consegui entender.
 
+Você: como vai
+SOF.IA: Pode repetir a pergunta? Não consegui entender.
+
+Você: oi
+SOF.IA: Desculpe, não compreendi a sua pergunta. Pode reformular?
+
+Você: Como vai
+SOF.IA: Não entendi. Pode explicar de outra forma?
+
+Você: alimentos
+SOF.IA: Não entendi. Pode explicar de outra forma?
+
+Você: pao
+SOF.IA: Desculpe, não compreendi a sua pergunta. Pode reformular?
+
+Você: pão
+SOF.IA: Não entendi. Pode explicar de outra forma?
+
+Você: Pão
+SOF.IA: Não entendi. Pode explicar de outra forma?
+
