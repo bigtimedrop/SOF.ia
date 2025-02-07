@@ -4,6 +4,7 @@ import json
 import random
 import os
 import math
+import webbrowser
 
 # Funções principais
 def load_config():
@@ -35,7 +36,14 @@ def get_response(user_message):
         return random.choice(responses.get("farewell", []))
     elif "projeto" in user_message:
         return random.choice(responses.get("project", []))
-    elif "calcular" or "calcule" in user_message:
+    elif "pesquisar sobre" in user_message:
+        try:
+            query = user_message.replace("pesquisar sobre", "").strip()
+            webbrowser.open(f"https://www.google.com/search?q={query}")
+            return f"Claro, aqui esta a pesquisa sobre {query}"
+        except Exception as e:
+            return "Desculpe, não consegui realizar a pesquisa."
+    elif "calcular" in user_message:
         try:
             expression = user_message.replace("calcular", "").strip()
             result = eval(expression, {"__builtins__": None}, {})
@@ -99,6 +107,8 @@ def show_help():
     2. Pressione 'Enter' ou clique no botão 'Enviar'.
     3. Veja a resposta da SOF.IA no painel de chat.
     4. Use o menu de Configurações para alterar o tema.
+    5. Use "Pesquisar sobre" para pequisar no seu navegador padrão.
+    6. Use "Calcular" para calcular expressões matemáticas.
     """
     messagebox.showinfo("Manual de Uso", help_text)
 
