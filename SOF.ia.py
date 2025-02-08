@@ -21,37 +21,38 @@ def save_config(config):
 def get_response(user_message):
     user_message = user_message.lower()
     responses = load_responses()
+    commands = [cmd.strip() for cmd in user_message.split(",")]  # Suporte para múltiplos comandos
+
+    results = []
     
-    if "olá" in user_message or "oi" in user_message:
-        return random.choice(responses.get("greetings", []))
-    elif "tudo bem" in user_message:
-        return random.choice(responses.get("wellbeing", []))
-    elif "nome" in user_message:
-        return random.choice(responses.get("name", []))
-    elif "tempo" in user_message:
-        return random.choice(responses.get("weather", []))
-    elif "ajuda" in user_message:
-        return random.choice(responses.get("help", []))
-    elif "adeus" in user_message or "tchau" in user_message:
-        return random.choice(responses.get("farewell", []))
-    elif "projeto" in user_message:
-        return random.choice(responses.get("project", []))
-    elif "pesquisar sobre" in user_message:
-        try:
-            query = user_message.replace("pesquisar sobre", "").strip()
-            webbrowser.open(f"https://www.google.com/search?q={query}")
-            return f"Claro, aqui esta a pesquisa sobre {query}"
-        except Exception as e:
-            return "Desculpe, não consegui realizar a pesquisa."
-    elif "calcular" in user_message:
-        try:
-            expression = user_message.replace("calcular", "").strip()
-            result = eval(expression, {"__builtins__": None}, {})
-            return f"O resultado é: {result}"
-        except Exception as e:
-            return "Desculpe, não consegui calcular a expressão."
-    else:
-        return random.choice(responses.get("default", []))
+    for command in commands:
+        if command.startswith("pesquisar sobre"):
+            query = command.replace("pesquisar sobre", "").strip()
+            if query:
+                webbrowser.open(f"https://www.google.com/search?q={query}")
+                results.append(f"Claro, aqui está a pesquisa sobre {query}.")
+            else:
+                results.append("Desculpe, não entendi o que você deseja pesquisar.")
+        
+        elif command.startswith("calcular"):
+            expression = command.replace("calcular", "").strip()
+            try:
+                result = eval(expression, {"__builtins__": None}, {})
+                results.append(f"O resultado é: {result}")
+            except Exception as e:
+                results.append("Desculpe, não consegui calcular a expressão.")
+        
+        else:
+            found_response = False
+            for key, response_list in responses.items():
+                if any(word in command for word in response_list):
+                    results.append(random.choice(responses[key]))
+                    found_response = True
+                    break
+            if not found_response:
+                results.append(random.choice(responses.get("default", [])))
+
+    return "\n".join(results)
 
 def load_responses():
     try:
@@ -107,8 +108,10 @@ def show_help():
     2. Pressione 'Enter' ou clique no botão 'Enviar'.
     3. Veja a resposta da SOF.IA no painel de chat.
     4. Use o menu de Configurações para alterar o tema.
-    5. Use "Pesquisar sobre" para pequisar no seu navegador padrão.
+    5. Use "Pesquisar sobre" para pesquisar no seu navegador padrão.
     6. Use "Calcular" para calcular expressões matemáticas.
+    7. Separe múltiplos comandos com uma vírgula. Exemplo:
+       "calcular 2+2, pesquisar sobre inteligência artificial"
     """
     messagebox.showinfo("Manual de Uso", help_text)
 
@@ -120,13 +123,13 @@ def show_history():
     except FileNotFoundError:
         messagebox.showinfo("Histórico de Conversas", "Nenhum histórico encontrado.")
 
-
 # Configurações iniciais
 config = load_config()
 
 # Configurações da janela principal
 root = tk.Tk()
 root.title("SOF.IA Assistente Virtual")
+root.resizable(False, False)
 
 # Menu de Configurações
 menu = tk.Menu(root)
