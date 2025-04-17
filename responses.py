@@ -1,9 +1,18 @@
 import random
 import webbrowser
+import datetime
+import pyttsx3
 import os
 import json
 from responses_data import responses_dict
 from commands import commands
+
+# Configurações iniciais
+engine = pyttsx3.init()
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
 
 # Carrega respostas do dicionário JSON
 def load_responses():
@@ -51,3 +60,11 @@ def get_response(user_message):
             return "Não consegui calcular a expressão."
 
     return random.choice(responses.get(command, responses["default"]))
+
+# Texto para fala
+def speak_response(response):
+    speak(response)
+
+# coisas a mais
+if __name__ == "__main__":
+    pass

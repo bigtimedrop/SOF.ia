@@ -25,8 +25,12 @@ def create_interface(config):
     send_button = tk.Button(root, text="Enviar")
     send_button.pack(pady=10)
 
+    # novidades
+    speak_button = tk.Button(root, text= "Falar", command=lambda: speak_current_response(chat_log))
+    speak_button.pack(pady=10)
+
     apply_theme(root, chat_log, entry_message, config)
-    return root, chat_log, entry_message
+    return root, chat_log, entry_message, speak_button
 
 def apply_theme(root, chat_log, entry_message, config):
     if config["theme"] == "dark":
@@ -50,7 +54,8 @@ def show_help():
     3. Veja a resposta da SOF.IA no painel de chat.
     4. Use o menu de Configurações para alterar o tema.
     5. Use "Pesquisar sobre" para pesquisar no seu navegador.
-    6. Use "Calcular" para fazer cálculos."""
+    6. Use "Calcular" para fazer cálculos.
+    7. Clique em "Falar" para ouvir a ultima resposta."""
     messagebox.showinfo("Manual de Uso", help_text)
 
 def show_history():
