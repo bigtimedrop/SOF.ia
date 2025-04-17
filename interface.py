@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from config import save_config
 
-def create_interface(config):
+def create_interface(config, speak_current_response):
     root = tk.Tk()
     root.title("SOF.IA Assistente Virtual")
     root.resizable(False, False)
@@ -29,7 +29,7 @@ def create_interface(config):
     speak_button.pack(pady=10)
 
     apply_theme(root, chat_log, entry_message, config)
-    return root, chat_log, entry_message, speak_button
+    return root, chat_log, entry_message, speak_button, send_button
 
 def apply_theme(root, chat_log, entry_message, config):
     if config["theme"] == "dark":
