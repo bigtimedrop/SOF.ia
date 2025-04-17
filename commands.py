@@ -7,5 +7,6 @@ commands = {
     "farewell": ["adeuis", "tchau","ate", "ate logo", "ate mais", "ate nunca mais", "estou indo"],
     "project": ["projeto", "sobre", "sobre você", "sobre o projeto", "sobre o projeto SOF.IA", "sobre o projeto SOF.IA"],
     "search": ["pesquisar sobre", "pesquisar sobre isso", "pesquisar sobre isso? ","procure sobre", "sobre", "buscar sobre", "buscar"],
-    "calculate": ["calcular", "calcule", "quanto e", "quanto e o resultado", "resuldado"]
+    "calculate": ["calcular", "calcule", "quanto e", "quanto e o resultado", "resuldado"],
+    "time": ["que horas são", "que horas são agora", "que horas são agora?", "horas"],
 }

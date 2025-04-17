@@ -4,6 +4,8 @@ import datetime
 import pyttsx3
 import os
 import json
+import time
+from datetime import datetime
 from responses_data import responses_dict
 from commands import commands
 
@@ -30,6 +32,12 @@ def load_responses():
             "project": ["O projeto SOF.IA está progredindo! Como posso ajudar?", "Você está trabalhando na SOF.IA, certo?"],
             "default": ["Desculpe, não compreendi. Pode reformular?", "Não entendi, pode repetir?"]
         }
+    
+# time
+def get_time():
+    now = datetime.now()
+    now_format = now.strftime("%H:%M")
+    return f"Agora são {now_format} horas."
 
 # Detecta o comando baseado no dicionário
 def detect_command(user_message):
@@ -58,6 +66,9 @@ def get_response(user_message):
             return f"O resultado é: {result}"
         except:
             return "Não consegui calcular a expressão."
+        
+    elif command == "time":
+        return get_time()
 
     return random.choice(responses.get(command, responses["default"]))
 

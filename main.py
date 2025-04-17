@@ -25,7 +25,7 @@ def send_message(event=None):
     save_to_history(user_message, response)
     entry_message.delete(0, tk.END)
 
-    speak_button.confg(command=lambda: speak_current_response(chat_log))
+    #speak_button.confg(command=lambda: speak_current_response(chat_log))
 
 entry_message.bind("<Return>", send_message)
 
