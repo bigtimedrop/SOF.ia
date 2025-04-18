@@ -29,7 +29,9 @@ def speak_current_response(chat_log):
     except Exception as e:
         print(f"Erro ao falar a última resposta: {e}")
 
-root, chat_log, entry_message, send_button, speak_button = create_interface(config, speak_current_response)
+# root, chat_log, entry_message, send_button, speak_button = create_interface(config, speak_current_response)
+
+root, chat_log, entry_message, speak_button, send_button = create_interface(config, speak_current_response)
 
 # Função de envio de mensagem
 def send_message(event=None):

@@ -13,8 +13,11 @@ from commands import commands
 engine = pyttsx3.init()
 
 def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+    try:
+        engine.say(text)
+        engine.runAndWait()
+    except Exception as e:
+        print(f"Erro ao falar: {e}")
 
 # Carrega respostas do dicionário JSON
 def load_responses():
