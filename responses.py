@@ -8,14 +8,30 @@ import time
 from datetime import datetime
 from responses_data import responses_dict
 from commands import commands
+from config import load_config
 
 # Configurações iniciais
 engine = pyttsx3.init()
+config = load_config()
+
+# Aplica confiqurações ao engine
+if config["voice_id"]:
+    engine.setProperty('voice', config["voice_id"])
+engine.setProperty("rate", config.get("rate", 150))
 
 def speak(text):
     try:
         engine.say(text)
         engine.runAndWait()
+
+        if config.get("save_audio", True):
+            now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            pasta = os.path.join("tpf_gravacoes", "falas")
+            os.makedirs(pasta, exist_ok=True)
+            caminho = os.path.join(pasta, f"falas_{now}.mp3")
+            engine.save_to_file(text, caminho)
+            engine.runAndWait()
+
     except Exception as e:
         print(f"Erro ao falar: {e}")
 

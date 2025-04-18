@@ -1,6 +1,7 @@
 import tkinter as tk
+import pyttsx3
 from tkinter import messagebox
-from config import save_config
+from config import save_config, load_config
 
 def create_interface(config, speak_current_response):
     root = tk.Tk()
@@ -13,6 +14,7 @@ def create_interface(config, speak_current_response):
     settings_menu = tk.Menu(menu, tearoff=0)
     menu.add_cascade(label="Configurações", menu=settings_menu)
     settings_menu.add_command(label="Mudar Tema", command=lambda: change_theme(root, chat_log, entry_message, config))
+    settings_menu.add_command(label="Configuração de voz", command=show_voice_settings)
     settings_menu.add_command(label="Manual de Uso", command=show_help)
     settings_menu.add_command(label="Histórico de Conversas", command=show_history)
 
@@ -64,3 +66,33 @@ def show_history():
         messagebox.showinfo("Histórico de Conversas", history)
     except FileNotFoundError:
         messagebox.showinfo("Histórico de Conversas", "Nenhum histórico encontrado.")
+
+def show_voice_settings():
+    win = tk.Toplevel()
+    win.title("Configurações de Voz")
+    win.geometry("400x300")
+
+    config = load_config()
+    engine = pyttsx3.init()
+    voices = engine.getProperty("voices")
+
+    tk.Label(win, text="Idioma/Voz:").pack()
+    voice_var = tk.StringVar(value=config.get("voice_id"))
+    voice_menu = tk.OptionMenu(win, voice_var, *[v.id for v in voices])
+    voice_menu.pack()
+
+    tk.Label(win, text="Velocidade:").pack()
+    rate_var = tk.IntVar(value=config.get("rate", 150))
+    tk.Scale(win, from_=100, to=300, variable=rate_var, orient="horizontal").pack()
+
+    save_var = tk.BooleanVar(value=config.get("save_audio", True))
+    tk.Checkbutton(win, text="Salvar fala como áudio", variable=save_var).pack()
+
+    def salvar_config():
+        config["voice_id"] = voice_var.get()
+        config["rate"] = rate_var.get()
+        config["save_audio"] = save_var.get()
+        save_config(config)
+        tk.messagebox.showinfo("Configurações", "Configurações salvas com sucesso.")
+
+    tk.Button(win, text="Salvar", command=salvar_config).pack(pady=10)
