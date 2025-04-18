@@ -25,7 +25,6 @@ def create_interface(config):
     send_button = tk.Button(root, text="Enviar")
     send_button.pack(pady=10)
 
-    # novidades
     speak_button = tk.Button(root, text= "Falar", command=lambda: speak_current_response(chat_log))
     speak_button.pack(pady=10)
 
